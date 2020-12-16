@@ -1,6 +1,6 @@
 <?php
 
-namespace Spatie\Skeleton\Tests;
+namespace Collinped\Aimtell\Tests;
 
 class ExampleTest extends TestCase
 {

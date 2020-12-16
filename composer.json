@@ -1,23 +1,26 @@
 {
-    "name": ":vendor_name/:package_name",
-    "description": ":package_description",
+    "name": "collinped/laravel-aimtell",
+    "description": "Aimtell laravel integration",
     "keywords": [
-        ":vendor_name",
-        ":package_name"
+        "aimtell",
+        "aimtell-php",
+        "laravel-aimtell"
     ],
-    "homepage": "https://github.com/:vendor_name/:package_name",
+    "homepage": "https://github.com/collinped/laravel-aimtell",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": "https://spatie.be",
+            "name": "Collin Pedersen",
+            "email": "me@collinped.com",
+            "homepage": "https://www.collinped.com",
             "role": "Developer"
         }
     ],
     "require": {
         "php": "^7.4|^8.0",
-        "illuminate/contracts": "^8.0"
+        "guzzlehttp/guzzle": "^7.2",
+        "illuminate/contracts": "^8.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
@@ -26,13 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Spatie\\Skeleton\\": "src",
-            "Spatie\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Collinped\\Aimtell\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Spatie\\Skeleton\\Tests\\": "tests"
+            "Collinped\\Aimtell\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -46,10 +48,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Spatie\\Skeleton\\SkeletonServiceProvider"
+                "Collinped\\Aimtell\\AimtellServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Spatie\\Skeleton\\SkeletonFacade"
+                "Aimtell": "Collinped\\Aimtell\\AimtellFacade"
             }
         }
     },
@@ -58,11 +60,7 @@
     "funding": [
         {
             "type": "github",
-            "url": "https://github.com/sponsors/spatie"
+            "url": "https://github.com/sponsors/collinped"
         },
-        {
-            "type": "other",
-            "url": "https://spatie.be/open-source/support-us"
-        }
     ]
 }
