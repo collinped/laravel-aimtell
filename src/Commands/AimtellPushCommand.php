@@ -13,7 +13,7 @@ class AimtellPushCommand extends Command
 
     public $description = 'Send a sample push notification to a Subscriber';
 
-    public function handle(Aimtell $aimtell)
+    public function handle(Aimtell $aimtell): void
     {
         $siteId = ($this->argument('site') ? $this->argument('site') : env('aimtell.default_site_id'));
         $subscriberId = $this->argument('subscriber');

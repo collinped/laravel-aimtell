@@ -151,9 +151,10 @@ class Push extends ResourceBase
         $actionButtonCount = count($actionButtons);
 
         $actionKey = 'a01';
-        if ($actionButtonCount >= 2) {
-            return 'error';
-        } elseif ($actionButtonCount === 1) {
+//        if ($actionButtonCount >= 2) {
+//            return 'error';
+//        } elseif {
+        if ($actionButtonCount === 1) {
             $actionKey = 'a02';
         }
 

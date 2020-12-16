@@ -29,7 +29,7 @@ abstract class ResourceBase
         ]);
     }
 
-    public function setSiteId($siteId)
+    public function setSiteId($siteId): void
     {
         $this->siteId = $siteId;
     }
@@ -147,7 +147,7 @@ abstract class ResourceBase
         return json_decode($response->getBody(), true);
     }
 
-    protected function getPath($path, array $query = [])
+    protected function getPath($path, array $query = []): string
     {
         $path = '/prod/'.$path;
         $queryString = '';
