@@ -3,7 +3,6 @@
 
 namespace Collinped\Aimtell\Resource;
 
-
 use Collinped\Aimtell\Aimtell;
 use Collinped\Aimtell\ResourceBase;
 
@@ -48,14 +47,16 @@ class Push extends ResourceBase
         $data['push_ttl'] = $this->ttl;
         $data['auto_hide'] = $this->autoHide;
 
-        if(!empty($this->actionButtons)) $data['actions'] = $this->actionButtons;
+        if (! empty($this->actionButtons)) {
+            $data['actions'] = $this->actionButtons;
+        }
 
         dd($data);
 
         return $this->sendRequest(
             'POST',
             $this->resourceName(),
-            array(),
+            [],
             $data
         );
     }
@@ -152,7 +153,7 @@ class Push extends ResourceBase
         $actionKey = 'a01';
         if ($actionButtonCount >= 2) {
             return 'error';
-        } else if ($actionButtonCount === 1) {
+        } elseif ($actionButtonCount === 1) {
             $actionKey = 'a02';
         }
 

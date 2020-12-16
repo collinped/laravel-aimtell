@@ -2,4 +2,6 @@
 
 namespace Collinped\Aimtell\Exception;
 
-class NetworkErrorException extends AimtellException { }
+class NetworkErrorException extends AimtellException
+{
+}

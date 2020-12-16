@@ -3,7 +3,6 @@
 
 namespace Collinped\Aimtell\Resource;
 
-
 use Collinped\Aimtell\Aimtell;
 use Collinped\Aimtell\ResourceBase;
 

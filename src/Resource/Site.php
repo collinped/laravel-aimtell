@@ -3,7 +3,6 @@
 
 namespace Collinped\Aimtell\Resource;
 
-
 use Collinped\Aimtell\Aimtell;
 use Collinped\Aimtell\ResourceBase;
 
@@ -23,7 +22,7 @@ class Site extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName() . 's',
-            array(),
+            [],
             $data,
             $headers
         );
@@ -50,7 +49,7 @@ class Site extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName().'/'.strval($this->siteId) . '/settings',
-            array(),
+            [],
             $data,
             $headers
         );
@@ -61,7 +60,7 @@ class Site extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName().'/package/'.strval($this->siteId),
-            array(),
+            [],
             $data,
             $headers
         );
@@ -80,7 +79,7 @@ class Site extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName().'/'.strval($this->siteId) . '/keys/upsert',
-            array(),
+            [],
             $data,
             $headers
         );

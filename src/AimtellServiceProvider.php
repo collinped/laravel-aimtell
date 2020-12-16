@@ -2,9 +2,9 @@
 
 namespace Collinped\Aimtell;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Collinped\Aimtell\Commands\AimtellPushCommand;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
 
 class AimtellServiceProvider extends ServiceProvider implements DeferrableProvider
 {

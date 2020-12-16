@@ -3,7 +3,6 @@
 
 namespace Collinped\Aimtell\Resource;
 
-
 use Collinped\Aimtell\Aimtell;
 use Collinped\Aimtell\ResourceBase;
 
@@ -22,7 +21,7 @@ class Subscriber extends ResourceBase
         $this->siteId = $siteId;
     }
 
-    public function all(array $query = array())
+    public function all(array $query = [])
     {
         $siteId = (isset($query['site_id']) ? $query['site_id'] : $this->siteId);
 
@@ -34,7 +33,7 @@ class Subscriber extends ResourceBase
         );
     }
 
-    public function get(array $query = array())
+    public function get(array $query = [])
     {
         $siteId = ($query['site_id'] ? $query['site_id'] : $this->siteId);
 
@@ -57,7 +56,7 @@ class Subscriber extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName(),
-            array(),
+            [],
             $data
         );
     }
@@ -74,7 +73,7 @@ class Subscriber extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName(),
-            array(),
+            [],
             $data
         );
     }
@@ -90,7 +89,7 @@ class Subscriber extends ResourceBase
         return $this->sendRequest(
             'POST',
             $this->resourceName(),
-            array(),
+            [],
             $data
         );
     }

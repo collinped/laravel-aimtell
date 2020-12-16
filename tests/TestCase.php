@@ -2,9 +2,9 @@
 
 namespace Collinped\Aimtell\Tests;
 
+use Collinped\Aimtell\AimtellServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Collinped\Aimtell\AimtellServiceProvider;
 
 class TestCase extends Orchestra
 {

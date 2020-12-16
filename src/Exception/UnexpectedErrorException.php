@@ -2,4 +2,6 @@
 
 namespace Collinped\Aimtell\Exception;
 
-class UnexpectedErrorException extends AimtellException { }
+class UnexpectedErrorException extends AimtellException
+{
+}
