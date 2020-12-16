@@ -26,11 +26,11 @@ class AimtellPushCommand extends Command
             ->toSubscriber($subscriberId)
             ->withButton([
                 'link' => 'sampleUrl',
-                'title' => 'Sample Title 1'
+                'title' => 'Sample Title 1',
             ])
             ->withButton([
                 'link' => 'sampleUrl2',
-                'title' => 'Sample Title 2'
+                'title' => 'Sample Title 2',
             ])
             ->send();
 

@@ -2,4 +2,6 @@
 
 namespace Collinped\Aimtell\Exception;
 
-class AuthorizationException extends AimtellException { }
+class AuthorizationException extends AimtellException
+{
+}

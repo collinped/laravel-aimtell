@@ -3,14 +3,14 @@
 namespace Collinped\Aimtell;
 
 use Collinped\Aimtell\Resource\ApiCampaign;
+use Collinped\Aimtell\Resource\Campaign;
 use Collinped\Aimtell\Resource\EventCampaign;
 use Collinped\Aimtell\Resource\Push;
 use Collinped\Aimtell\Resource\RssNotification;
 use Collinped\Aimtell\Resource\Segment;
-use InvalidArgumentException;
 use Collinped\Aimtell\Resource\Site;
-use Collinped\Aimtell\Resource\Campaign;
 use Collinped\Aimtell\Resource\Subscriber;
+use InvalidArgumentException;
 
 class Aimtell
 {
@@ -22,15 +22,15 @@ class Aimtell
 
     public function __construct($apiKey = null, $whiteLabelId = null, $defaultSiteId = null)
     {
-        if (!is_null($apiKey)) {
+        if (! is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
 
-        if (!is_null($whiteLabelId)) {
+        if (! is_null($whiteLabelId)) {
             $this->setWhitelabelId($whiteLabelId);
         }
 
-        if (!is_null($defaultSiteId)) {
+        if (! is_null($defaultSiteId)) {
             $this->setDefaultSiteId($defaultSiteId);
         }
     }
@@ -42,7 +42,7 @@ class Aimtell
 
     public function setApiKey($apiKey): Aimtell
     {
-        if (!is_string($apiKey) || empty($apiKey)) {
+        if (! is_string($apiKey) || empty($apiKey)) {
             throw new InvalidArgumentException('API Key must be a non-empty string.');
         }
         $this->apiKey = $apiKey;
@@ -57,7 +57,7 @@ class Aimtell
 
     public function setWhitelabelId($whiteLabelId): Aimtell
     {
-        if (!is_string($whiteLabelId) || empty($whiteLabelId)) {
+        if (! is_string($whiteLabelId) || empty($whiteLabelId)) {
             throw new InvalidArgumentException('White Label ID must be a non-empty string.');
         }
 
@@ -73,7 +73,7 @@ class Aimtell
 
     public function setDefaultSiteId($siteId): Aimtell
     {
-        if (!is_string($siteId) || empty($siteId)) {
+        if (! is_string($siteId) || empty($siteId)) {
             throw new InvalidArgumentException('Default Site ID must be a non-empty string.');
         }
 
@@ -84,7 +84,7 @@ class Aimtell
 
     public function site($siteId = null): Site
     {
-        $siteId = (!is_null($siteId) ? $siteId : $this->defaultSiteId);
+        $siteId = (! is_null($siteId) ? $siteId : $this->defaultSiteId);
 
         return new Site($this, $siteId);
     }
@@ -123,5 +123,4 @@ class Aimtell
     {
         return new RssNotification($this, $rssNotificationId, $this->defaultSiteId);
     }
-
 }

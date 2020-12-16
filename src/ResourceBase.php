@@ -3,11 +3,11 @@
 
 namespace Collinped\Aimtell;
 
-use Exception;
 use Collinped\Aimtell\Exception\AuthorizationException;
 use Collinped\Aimtell\Exception\NetworkErrorException;
 use Collinped\Aimtell\Exception\RequestException;
 use Collinped\Aimtell\Exception\UnexpectedErrorException;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -29,11 +29,12 @@ abstract class ResourceBase
         ]);
     }
 
-    public function setSiteId($siteId) {
+    public function setSiteId($siteId)
+    {
         $this->siteId = $siteId;
     }
 
-    public function all(array $query = array())
+    public function all(array $query = [])
     {
         $siteId = (isset($query['site_id']) ? $query['site_id'] : $this->siteId);
 
@@ -46,13 +47,14 @@ abstract class ResourceBase
 
     public function create(array $data, array $headers = null)
     {
-        if (array_key_exists('site_id', $data))
+        if (array_key_exists('site_id', $data)) {
             $this->siteId = $data['site_id'];
+        }
 
         return $this->sendRequest(
             'POST',
             $this->resourceName() . ($this->siteId ? '/' . strval($this->siteId) : ''),
-            array(),
+            [],
             $data,
             $headers
         );
@@ -63,7 +65,7 @@ abstract class ResourceBase
         return $this->sendRequest(
             'PUT',
             $this->resourceName() . '/' . strval($id),
-            array(),
+            [],
             $data,
             $headers
         );
@@ -88,6 +90,7 @@ abstract class ResourceBase
     protected function resourceName(): string
     {
         $class = explode('\\', get_called_class());
+
         return $this->camelToUnderscore(array_pop($class));
     }
 
@@ -96,14 +99,15 @@ abstract class ResourceBase
         $patterns = [
             '/([a-z]+)([0-9]+)/i',
             '/([a-z]+)([A-Z]+)/',
-            '/([0-9]+)([a-z]+)/i'
+            '/([0-9]+)([a-z]+)/i',
         ];
         $string = preg_replace($patterns, '$1'.$us.'$2', $string);
         $string = strtolower($string);
+
         return $string;
     }
 
-    protected function sendRequest($method, $path, array $query = array(), array $body = null, array $headers = null)
+    protected function sendRequest($method, $path, array $query = [], array $body = null, array $headers = null)
     {
         $path = $this->getPath($path, $query);
         $options = $this->getOptions($body, $headers);
@@ -115,7 +119,7 @@ abstract class ResourceBase
             throw new NetworkErrorException($e->getMessage());
             // @codeCoverageIgnoreEnd
         } catch (GuzzleException $e) {
-            if (!$e->hasResponse()) {
+            if (! $e->hasResponse()) {
                 throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
             }
 
@@ -126,11 +130,13 @@ abstract class ResourceBase
 //            if ($statusCode === 403)
 //                throw new AuthorizationException($errorMessage, 403);
 
-            if ($statusCode === 401)
+            if ($statusCode === 401) {
                 throw new AuthorizationException($errorMessage, 401);
+            }
 
-            if ($statusCode === 400)
+            if ($statusCode === 400) {
                 throw new RequestException($errorMessage, 400);
+            }
 
             throw new UnexpectedErrorException('An Unexpected Error has occurred: ' . $e->getMessage());
         } catch (Exception $e) {
@@ -141,24 +147,25 @@ abstract class ResourceBase
         return json_decode($response->getBody(), true);
     }
 
-    protected function getPath($path, array $query = array())
+    protected function getPath($path, array $query = [])
     {
         $path = '/prod/'.$path;
         $queryString = '';
-        if (!empty($query)) {
+        if (! empty($query)) {
             $queryString = '?'.http_build_query($query);
         }
+
         return $path.$queryString;
     }
 
     protected function getOptions(array $body = null, array $headers = null): array
     {
-        $options = array(
-            'headers' => array(
+        $options = [
+            'headers' => [
                 'Accept' => 'application/json; charset=utf-8',
                 'X-Authorization-Api-Key' => $this->aimtell->getApiKey(),
-            ),
-        );
+            ],
+        ];
 
         if ($headers) {
             $options['headers'] = array_merge($options['headers'], $headers);
@@ -168,7 +175,7 @@ abstract class ResourceBase
             $options['headers']['Aimtell-Whitelabel-ID'] = $whiteLabelId;
         }
 
-        if (!$body) {
+        if (! $body) {
             return $options;
         }
 
@@ -185,12 +192,13 @@ abstract class ResourceBase
      */
     protected function stringifyBooleans($body): array
     {
-        return array_map(function($value) {
+        return array_map(function ($value) {
             if (is_bool($value)) {
                 return $value ? 'true' : 'false';
-            } else if (is_array($value)) {
+            } elseif (is_array($value)) {
                 return $this->stringifyBooleans($value);
             }
+
             return $value;
         }, $body);
     }

@@ -2,4 +2,6 @@
 
 namespace Collinped\Aimtell\Exception;
 
-class RequestException extends AimtellException { }
+class RequestException extends AimtellException
+{
+}
