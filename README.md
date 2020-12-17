@@ -27,13 +27,15 @@ This is the contents of the published config file:
 
 ```php
 return [
-    'api_key' => env('AIMTELL_API_KEY'),
-    'white_label_id' => env('AIMTELL_WHITE_LABEL_ID'),
-    'default_site_id' => env('AIMTELL_DEFAULT_SITE_ID'),
+    'api_key' => env('AIMTELL_API_KEY'), // Required - API Key Provided by Aimtell
+    'white_label_id' => env('AIMTELL_WHITE_LABEL_ID'), // Must contact Aimtell for White Label ID
+    'default_site_id' => env('AIMTELL_DEFAULT_SITE_ID'), // Recommended
 ];
 ```
 
 ## Usage
+
+#### Quick Example
 
 ``` php
 $aimtell = new Collinped\Aimtell($apiKey, $whiteLabelId, $defaultSiteId);
@@ -52,6 +54,178 @@ $campaign = $aimtell->site($siteId)
                     ->campaign($campaignId)
                     ->find();
 ```
+
+### Sites
+- Get All Websites
+- Get Website
+- Get Website Code
+- Add Website
+- Update Website Details
+- Get Website Settings
+- Update Website Settings
+- Update Website Package (Safari)
+- Delete Website
+- Get Website Keys
+- Upsert Website Keys
+
+### Subscribers
+- Get All Subscribers
+- Get Subscriber
+- Track Subscriber Attributes
+- Track Subscriber Event
+- Opt-Out Subscriber
+
+### Segments
+- Get All Segments
+- Get Segment
+- Create Segment
+- Update Segment
+- Delete Segment
+- Get Segment Counts Over Time
+
+### Manual Campaigns
+- Get All Manual Campaigns
+- Get Manual Campaign
+
+### Sites
+
+#### Get All Websites
+
+``` php
+$websites = $aimtell->site()
+                    ->all();
+```
+
+#### Get Website
+
+``` php
+$website = $aimtell->site()
+                   ->find($siteId);
+```
+
+#### Get Website Code
+
+``` php
+$website = $aimtell->site($siteId)
+                   ->getCode();
+```
+
+#### Add Website
+
+``` php
+$websites = $aimtell->site()
+                    ->create([
+                        'name' => 'Website Name', // Required
+                        'url' => 'facebook.com' // Required
+                    ]);
+```
+
+#### Update Website Details
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->update([
+                        'name' => 'Website Name',
+                        'url' => 'facebook.com'
+                        'icon' => 'imageUrl.jpg'
+                    ]);
+```
+
+#### Get Website Settings
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->getSettings();
+```
+
+#### Update Website Settings
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->updateSettings([
+                        ...
+                    ]);
+```
+
+#### Update Website Package (Safari)
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->updatePackage();
+```
+
+#### Delete Website
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->delete();
+```
+
+#### Update Website Keys
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->getKeys();
+```
+
+#### Upsert Website Keys
+
+``` php
+$websites = $aimtell->site($siteId)
+                    ->upsertKeys([
+                        ...
+                    ]);
+```
+
+### Subscribers
+
+#### Get All Subscribers
+
+``` php
+$subscribers = $aimtell->site($siteId)
+                        ->subscriber()
+                        ->all();
+```
+
+#### Get Subscriber
+
+``` php
+$subscriber = $aimtell->site($siteId)
+                        ->subscriber()
+                        ->find($subscriberId);
+```
+
+#### Track Subscriber Attribute
+
+``` php
+$subscriber = $aimtell->site($siteId)
+                        ->subscriber($subscriberId)
+                        ->trackEvent([
+                            'first_name' => 'jeff'
+                            'gender' => 'male'
+                        ]);
+```
+
+#### Track Subscriber Event
+
+``` php
+$subscriber = $aimtell->site($siteId)
+                        ->subscriber($subscriberId)
+                        ->trackEvent([
+                            'category' => '' // Required
+                            'action' => '', // Required
+                            'label' => '',
+                            'value' => 1.00
+                        ]);
+```
+#### Opt-Out Subscriber
+
+``` php
+$subscriber = $aimtell->site($siteId)
+                        ->subscriber($subscriberId)
+                        ->optOut();
+```
+
 
 ## Testing
 
