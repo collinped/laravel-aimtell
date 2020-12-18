@@ -31,7 +31,7 @@ class Campaign extends ResourceBase
         );
     }
 
-    public function getResultsByDates($campaignId, array $dates)
+    public function getResultsByDates(array $dates, $campaignId = null)
     {
         $campaignId = ($campaignId ? $campaignId : $this->campaignId);
 
@@ -39,16 +39,6 @@ class Campaign extends ResourceBase
             'GET',
             $this->resourceName().'/'.strval($campaignId) . '/clicks',
             $dates
-        );
-    }
-
-    public function getKeys($siteId = null)
-    {
-        $siteId = ($siteId ? $siteId : $this->siteId);
-
-        return $this->sendRequest(
-            'GET',
-            $this->resourceName().'/'.strval($siteId) . '/keys'
         );
     }
 }

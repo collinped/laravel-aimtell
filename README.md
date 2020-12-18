@@ -1,10 +1,10 @@
 # Laravel Aimtell Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/collinped/laravel-aimtell.svg?style=flat-square)](https://packagist.org/packages/collinped/laravel-aimtell)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/collinped/laravel-aimtell/run-tests?label=tests)](https://github.com/collinped/laravel-aimtell/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/collinped/laravel-aimtell/run-tests?label=tests&style=flat-square)](https://github.com/collinped/laravel-aimtell/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/collinped/laravel-aimtell.svg?style=flat-square)](https://packagist.org/packages/collinped/laravel-aimtell)
 
-Aimtell offers a service for push notifications to users who give permission. This package allows for interfacing with Aimtell's backend API to manage your account.
+[Aimtell](https://aimtell.com/) offers a service for push notifications to users who give permission. This package allows for interfacing with Aimtell's backend API to manage your account.
 
 [Aimtell REST API Documentation](https://developers.aimtell.com/reference#authenticating-calls)
 
@@ -28,8 +28,8 @@ This is the contents of the published config file:
 ```php
 return [
     'api_key' => env('AIMTELL_API_KEY'), // Required - API Key Provided by Aimtell
-    'white_label_id' => env('AIMTELL_WHITE_LABEL_ID'), // Must contact Aimtell for White Label ID
     'default_site_id' => env('AIMTELL_DEFAULT_SITE_ID'), // Recommended
+    'white_label_id' => env('AIMTELL_WHITE_LABEL_ID'), // Must contact Aimtell for White Label ID
 ];
 ```
 
@@ -38,7 +38,7 @@ return [
 #### Quick Example
 
 ``` php
-$aimtell = new Collinped\Aimtell($apiKey, $whiteLabelId, $defaultSiteId);
+$aimtell = new Collinped\Aimtell($apiKey, $defaultSiteId, $whiteLabelId);
 
 $site = $aimtell->site()
                 ->create([
@@ -51,9 +51,17 @@ $campaigns = $aimtell->site($siteId)
                      ->all();
 
 $campaign = $aimtell->site($siteId)
-                    ->campaign($campaignId)
-                    ->find();
+                    ->campaign()
+                    ->find($campaignId);
 ```
+### Authentication
+
+- Get API Key
+- Set API Key
+- Get Default Site ID
+- Set Default Site ID
+- Get White Label ID
+- Set White Label ID
 
 ### Sites
 - Get All Websites
@@ -86,6 +94,74 @@ $campaign = $aimtell->site($siteId)
 ### Manual Campaigns
 - Get All Manual Campaigns
 - Get Manual Campaign
+- Get Manual Campaign Clicks
+- Get Manual Campaign Results (By Day)
+- Create Manual Campaign
+- Update Manual Campaign
+- Delete Manual Campaign
+
+### Triggered Campaigns
+- Get All Event Triggered Campaigns
+- Get Event Triggered Campaign
+- Get Event Triggered Campaign Results (By Day)
+- Create Event Triggered Campaign
+- Update Event Triggered Campaign
+- Delete Event Triggered Campaign
+
+### RSS Campaigns
+- Get All RSS Campaigns
+- Get RSS Campaign
+- Create RSS Campaign
+- Update RSS Campaign
+- Delete RSS Campaign
+
+### API Campaigns
+- Get All API Campaigns
+- Get API Campaign
+- Get Event API Campaign Results (By Day)
+
+### Send Push Notifications
+- Send a Push Notification
+
+
+
+### Authentication
+
+#### Get API Key
+
+``` php
+$aimtell = $aimtell->getApiKey();
+```
+
+#### Set API Key
+
+``` php
+$aimtell = $aimtell->setApiKey($apiKey);
+```
+
+#### Get Default Site ID
+
+``` php
+$aimtell = $aimtell->getDefaultSiteId();
+```
+
+#### Set Default Site ID
+
+``` php
+$aimtell = $aimtell->setDefaultSiteId($defaultSiteId);
+```
+
+#### Get White Label ID
+
+``` php
+$aimtell = $aimtell->getWhiteLabelId();
+```
+
+#### Set White Label ID
+
+``` php
+$aimtell = $aimtell->setWhiteLabelId($whiteLabelId);
+```
 
 ### Sites
 
@@ -183,55 +259,137 @@ $websites = $aimtell->site($siteId)
 
 ``` php
 $subscribers = $aimtell->site($siteId)
-                        ->subscriber()
-                        ->all();
+                       ->subscriber()
+                       ->all();
 ```
 
 #### Get Subscriber
 
 ``` php
 $subscriber = $aimtell->site($siteId)
-                        ->subscriber()
-                        ->find($subscriberId);
+                      ->subscriber()
+                      ->find($subscriberId);
 ```
 
 #### Track Subscriber Attribute
 
 ``` php
 $subscriber = $aimtell->site($siteId)
-                        ->subscriber($subscriberId)
-                        ->trackEvent([
-                            'first_name' => 'jeff'
-                            'gender' => 'male'
-                        ]);
+                      ->subscriber($subscriberId)
+                      ->trackEvent([
+                          'first_name' => 'jeff'
+                          'gender' => 'male'
+                      ]);
 ```
 
 #### Track Subscriber Event
 
 ``` php
 $subscriber = $aimtell->site($siteId)
-                        ->subscriber($subscriberId)
-                        ->trackEvent([
-                            'category' => '' // Required
-                            'action' => '', // Required
-                            'label' => '',
-                            'value' => 1.00
-                        ]);
+                      ->subscriber($subscriberId)
+                      ->trackEvent([
+                          'category' => '' // Required
+                          'action' => '', // Required
+                          'label' => '',
+                          'value' => 1.00
+                      ]);
 ```
 #### Opt-Out Subscriber
 
 ``` php
 $subscriber = $aimtell->site($siteId)
-                        ->subscriber($subscriberId)
-                        ->optOut();
+                      ->subscriber($subscriberId)
+                      ->optOut();
 ```
 
+### Manual Campaigns
+
+#### Get All Manual Campaigns
+
+``` php
+$campaigns = $aimtell->site($siteId)
+                     ->campaign()
+                     ->all();
+```
+
+#### Get Manual Campaign
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign()
+                    ->find($campaignId);
+```
+
+#### Get Manual Campaign Clicks
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign($campaignId)
+                    ->getClicks();
+```
+
+#### Get Manual Campaign Results (By Day)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign($campaignId)
+                    ->getResultsByDate([
+                        'startDate' => '01/01/2020',
+                        'endDate' => '02/15/2020',
+                    ]);
+```
+
+#### Create Manual Campaign - [Aimtell Docs](https://developers.aimtell.com/reference#create-campaign)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign($campaignId)
+                    ->create([
+                        'name' => 'Campaign Name', // Required
+                        'title' => 'Campaign Title',
+                        ...
+                    ]);
+```
+
+#### Update Manual Campaign - [Aimtell Docs](https://developers.aimtell.com/reference#update-campaign)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign($campaignId)
+                    ->update([
+                        'name' => 'New Campaign Name',
+                        'title' => 'New Campaign Title',
+                        ...
+                    ]);
+```
+
+#### Delete Manual Campaign
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->campaign($campaignId)
+                    ->delete();
+```
 
 ## Testing
 
 ``` bash
 composer test
 ```
+
+## Todo
+
+- [ ] A/B Tests for Manual Campaigns
+- [ ] Create Manual Campaign (Batch)
+- [ ] Update Manual Campaign (Batch)
+- [ ] Delete Manual Campaign (Batch)
+- [ ] Create Event Triggered Campaign (Batch)
+- [ ] Update Event Triggered Campaign (Batch)
+- [ ] Delete Event Triggered Campaign (Batch)
+- [ ] Get Notification Logs
+- [ ] Get Attributes Logs
+- [ ] Get Pageview Logs
+- [ ] Get Event Logs
 
 ## Changelog
 

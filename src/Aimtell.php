@@ -6,6 +6,7 @@ use Collinped\Aimtell\Resource\ApiCampaign;
 use Collinped\Aimtell\Resource\Campaign;
 use Collinped\Aimtell\Resource\EventCampaign;
 use Collinped\Aimtell\Resource\Push;
+use Collinped\Aimtell\Resource\RssCampaign;
 use Collinped\Aimtell\Resource\RssNotification;
 use Collinped\Aimtell\Resource\Segment;
 use Collinped\Aimtell\Resource\Site;
@@ -16,22 +17,22 @@ class Aimtell
 {
     protected ?string $apiKey = null;
 
-    protected ?string $whiteLabelId = null;
-
     protected ?string $defaultSiteId = null;
 
-    public function __construct($apiKey = null, $whiteLabelId = null, $defaultSiteId = null)
+    protected ?string $whiteLabelId = null;
+
+    public function __construct($apiKey = null, $defaultSiteId = null, $whiteLabelId = null)
     {
         if (! is_null($apiKey)) {
             $this->setApiKey($apiKey);
         }
 
-        if (! is_null($whiteLabelId)) {
-            $this->setWhitelabelId($whiteLabelId);
-        }
-
         if (! is_null($defaultSiteId)) {
             $this->setDefaultSiteId($defaultSiteId);
+        }
+
+        if (! is_null($whiteLabelId)) {
+            $this->setWhitelabelId($whiteLabelId);
         }
     }
 
@@ -50,22 +51,6 @@ class Aimtell
         return $this;
     }
 
-    public function getWhiteLabelId(): ?string
-    {
-        return $this->whiteLabelId;
-    }
-
-    public function setWhitelabelId($whiteLabelId): Aimtell
-    {
-        if (! is_string($whiteLabelId) || empty($whiteLabelId)) {
-            throw new InvalidArgumentException('White Label ID must be a non-empty string.');
-        }
-
-        $this->whiteLabelId = $whiteLabelId;
-
-        return $this;
-    }
-
     public function getDefaultSiteId(): ?string
     {
         return $this->defaultSiteId;
@@ -78,6 +63,22 @@ class Aimtell
         }
 
         $this->defaultSiteId = $siteId;
+
+        return $this;
+    }
+
+    public function getWhiteLabelId(): ?string
+    {
+        return $this->whiteLabelId;
+    }
+
+    public function setWhitelabelId($whiteLabelId): Aimtell
+    {
+        if (! is_string($whiteLabelId) || empty($whiteLabelId)) {
+            throw new InvalidArgumentException('White Label ID must be a non-empty string.');
+        }
+
+        $this->whiteLabelId = $whiteLabelId;
 
         return $this;
     }
@@ -107,6 +108,11 @@ class Aimtell
     public function eventCampaign($eventCampaignId = null): EventCampaign
     {
         return new EventCampaign($this, $eventCampaignId, $this->defaultSiteId);
+    }
+
+    public function rssCampaign($rssCampaignId = null): RssCampaign
+    {
+        return new RssCampaign($this, $rssCampaignId, $this->defaultSiteId);
     }
 
     public function apiCampaign($apiCampaignId = null): ApiCampaign

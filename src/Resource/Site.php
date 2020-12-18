@@ -104,6 +104,11 @@ class Site extends ResourceBase
         return new EventCampaign($this->aimtell, $eventCampaignId, $this->siteId);
     }
 
+    public function rssCampaign($rssCampaignId = null): RssCampaign
+    {
+        return new RssCampaign($this->aimtell, $rssCampaignId, $this->siteId);
+    }
+
     public function apiCampaign($apiCampaignId = null): ApiCampaign
     {
         return new ApiCampaign($this->aimtell, $apiCampaignId, $this->siteId);
