@@ -51,8 +51,6 @@ class Push extends ResourceBase
             $data['actions'] = $this->actionButtons;
         }
 
-        dd($data);
-
         return $this->sendRequest(
             'POST',
             $this->resourceName(),

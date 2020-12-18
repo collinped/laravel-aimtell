@@ -371,6 +371,28 @@ $campaign = $aimtell->site($siteId)
                     ->delete();
 ```
 
+### Send Push Notifications
+
+#### Send a Push Notification
+
+``` php
+$notification = $aimtell->site($siteId)
+                        ->push()
+                        ->title('Sample Notification')
+                        ->message('Here is your sample message')
+                        ->link('https://www.laravel.com')
+                        ->toSubscriber($subscriberId)
+                        ->withButton([
+                            'link' => 'sampleUrl',
+                            'title' => 'Sample Title 1',
+                        ])
+                        ->withButton([
+                            'link' => 'sampleUrl2',
+                            'title' => 'Sample Title 2',
+                        ])
+                        ->send();
+```
+
 ## Testing
 
 ``` bash
