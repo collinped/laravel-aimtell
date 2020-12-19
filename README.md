@@ -100,7 +100,7 @@ $campaign = $aimtell->site($siteId)
 - Update Manual Campaign
 - Delete Manual Campaign
 
-### Triggered Campaigns
+### Event Triggered Campaigns
 - Get All Event Triggered Campaigns
 - Get Event Triggered Campaign
 - Get Event Triggered Campaign Results (By Day)
@@ -368,6 +368,67 @@ $campaign = $aimtell->site($siteId)
 ``` php
 $campaign = $aimtell->site($siteId)
                     ->campaign($campaignId)
+                    ->delete();
+```
+
+### Triggered Campaigns
+
+#### Get All Event Triggered Campaigns
+
+``` php
+$campaigns = $aimtell->site($siteId)
+                     ->eventCampaign()
+                     ->all();
+```
+
+#### Get Event Triggered Campaign
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->eventCampaign()
+                    ->find($campaignId);
+```
+
+#### Get Event Triggered Campaign Results (By Day)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->eventCampaign($campaignId)
+                    ->getResultsByDate([
+                        'startDate' => '01/01/2020',
+                        'endDate' => '02/15/2020',
+                    ]);
+```
+
+#### Create Event Triggered Campaign - [Aimtell Docs](https://developers.aimtell.com/reference#create-event-campaign)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->eventCampaign($campaignId)
+                    ->create([
+                        'name' => 'Campaign Name', // Required
+                        'title' => 'Campaign Title',
+                        ...
+                    ]);
+```
+
+#### Update Event Triggered Campaign - [Aimtell Docs](https://developers.aimtell.com/reference#update-event-campaign)
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->eventCampaign($campaignId)
+                    ->update([
+                        'name' => 'New Campaign Name',
+                        'title' => 'New Campaign Title',
+                        ...
+                    ]);
+```
+
+#### Delete Event Triggered Campaign
+
+``` php
+$campaign = $aimtell->site($siteId)
+                    ->eventCampaign($campaignId)
                     ->delete();
 ```
 
