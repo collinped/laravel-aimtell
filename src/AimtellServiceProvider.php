@@ -1,13 +1,17 @@
 <?php
 
-namespace Collinped\Aimtell;
+namespace Collinped\LaravelAimtell;
 
-use Collinped\Aimtell\Commands\AimtellPushCommand;
+use Collinped\Aimtell\Aimtell;
+use Collinped\LaravelAimtell\Commands\AimtellPushCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AimtellServiceProvider extends ServiceProvider implements DeferrableProvider
 {
+    /**
+     * Bootstrap the application services.
+     */
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
@@ -21,13 +25,18 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
         }
     }
 
+    /**
+     * Register the application services.
+     */
     public function register()
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/aimtell.php', 'aimtell');
 
-        $this->app->singleton(Aimtell::class, function ($app) {
-            return new Aimtell($app['config']['aimtell']['api_key'], $app['config']['aimtell']['default_site_id'], $app['config']['aimtell']['white_label_id']);
+        $this->app->singleton(Aimtell::class, function() {
+            return aimtell();
         });
+
+        $this->app->alias('aimtell', Aimtell::class);
     }
 
     public function provides(): array
