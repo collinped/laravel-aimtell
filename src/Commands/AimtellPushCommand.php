@@ -1,6 +1,6 @@
 <?php
 
-namespace Collinped\Aimtell\Commands;
+namespace Collinped\LaravelAimtell\Commands;
 
 use Collinped\Aimtell\Aimtell;
 use Illuminate\Console\Command;
@@ -15,7 +15,7 @@ class AimtellPushCommand extends Command
 
     public function handle(Aimtell $aimtell): void
     {
-        $siteId = ($this->argument('site') ? $this->argument('site') : env('aimtell.default_site_id'));
+        $siteId = ($this->argument('site') ? $this->argument('site') : config('aimtell.default_site_id'));
         $subscriberId = $this->argument('subscriber');
 
         $aimtell->site($siteId)

@@ -1,6 +1,6 @@
 <?php
 
-namespace Collinped\Aimtell;
+namespace Collinped\LaravelAimtell;
 
 use Illuminate\Support\Facades\Facade;
 
