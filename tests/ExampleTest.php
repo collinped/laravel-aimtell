@@ -1,6 +1,6 @@
 <?php
 
-namespace Collinped\Aimtell\Tests;
+namespace Collinped\LaravelAimtell\Tests;
 
 use PHPUnit\Framework\TestCase;
 
