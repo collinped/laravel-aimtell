@@ -32,7 +32,7 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/aimtell.php', 'aimtell');
 
-        $this->app->singleton(Aimtell::class, function() {
+        $this->app->singleton(Aimtell::class, function () {
             return aimtell();
         });
 
