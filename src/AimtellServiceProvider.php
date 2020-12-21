@@ -2,7 +2,6 @@
 
 namespace Collinped\LaravelAimtell;
 
-use Collinped\Aimtell\Aimtell;
 use Collinped\LaravelAimtell\Commands\AimtellPushCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;

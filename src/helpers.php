@@ -1,6 +1,6 @@
 <?php
 
-use Collinped\Aimtell\Aimtell;
+use Collinped\LaravelAimtell\Aimtell;
 
 if (! function_exists('aimtell')) {
     /**
