@@ -11,14 +11,6 @@ class Aimtell extends SourceAimtell
         Macroable::__call as macroCall;
     }
 
-    /**
-     * @return SourceAimtell
-     */
-    public static function create(): SourceAimtell
-    {
-        return aimtell();
-    }
-
     public function __call(string $method, array $parameters)
     {
         if (static::hasMacro($method)) {
