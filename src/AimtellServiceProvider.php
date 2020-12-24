@@ -14,7 +14,11 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function boot(): void
     {
-        $this->setupConfig();
+        if (function_exists('config_path')) { // function not available and 'publish' not relevant in Lumen
+            $this->publishes([
+                __DIR__.'/../config/aimtell.php' => config_path('aimtell.php'),
+            ], 'config');
+        }
 
         if ($this->app->runningInConsole()) {
             $this->commands([
@@ -28,22 +32,16 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function register(): void
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/aimtell.php',
+            'aimtell'
+        );
+
         $this->app->singleton(Aimtell::class, function () {
             return aimtell();
         });
 
         $this->app->alias('aimtell', Aimtell::class);
-    }
-
-    /**
-     * Setup config.
-     */
-    protected function setupConfig(): void
-    {
-        $source = realpath(__DIR__.'/../config/aimtell.php');
-
-        $this->publishes([$source => config_path('aimtell.php')]);
-        $this->mergeConfigFrom($source, 'aimtell');
     }
 
     public function provides(): array
