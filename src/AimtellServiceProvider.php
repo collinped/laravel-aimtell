@@ -4,7 +4,6 @@ namespace Collinped\LaravelAimtell;
 
 use Collinped\LaravelAimtell\Commands\AimtellPushCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 
 class AimtellServiceProvider extends ServiceProvider implements DeferrableProvider
