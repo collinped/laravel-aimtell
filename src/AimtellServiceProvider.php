@@ -4,6 +4,7 @@ namespace Collinped\LaravelAimtell;
 
 use Collinped\LaravelAimtell\Commands\AimtellPushCommand;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider;
 
 class AimtellServiceProvider extends ServiceProvider implements DeferrableProvider
@@ -13,11 +14,9 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
      */
     public function boot(): void
     {
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . '/../config/aimtell.php' => config_path('aimtell.php'),
-            ], 'config');
+        $this->setupConfig();
 
+        if ($this->app->runningInConsole()) {
             $this->commands([
                 AimtellPushCommand::class,
             ]);
@@ -27,15 +26,24 @@ class AimtellServiceProvider extends ServiceProvider implements DeferrableProvid
     /**
      * Register the application services.
      */
-    public function register()
+    public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/aimtell.php', 'aimtell');
-
         $this->app->singleton(Aimtell::class, function () {
             return aimtell();
         });
 
         $this->app->alias('aimtell', Aimtell::class);
+    }
+
+    /**
+     * Setup config.
+     */
+    protected function setupConfig(): void
+    {
+        $source = realpath(__DIR__.'/../config/aimtell.php');
+
+        $this->publishes([$source => config_path('aimtell.php')]);
+        $this->mergeConfigFrom($source, 'aimtell');
     }
 
     public function provides(): array
