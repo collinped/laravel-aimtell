@@ -20,7 +20,7 @@ You can publish and run the migrations with:
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Collinped\Aimtell\AimtellServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Collinped\LaravelAimtell\AimtellServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:
